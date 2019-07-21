@@ -1,9 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output,
+import {
+  Component, EventEmitter, Input, OnInit, Output,
   OnChanges,
   DoCheck,
   AfterContentInit,
   AfterContentChecked,
-  AfterViewInit, AfterViewChecked, OnDestroy } from '@angular/core';
+  AfterViewInit, AfterViewChecked, OnDestroy, SimpleChanges
+} from '@angular/core';
 
 
 @Component({
@@ -26,8 +28,13 @@ export class InputNameComponent implements OnInit, OnChanges, DoCheck, AfterCont
   }
   ngOnInit(): void { }
 
-  ngOnChanges() {
-    console.log('%cOnChanges', `color: ${this.color}`);
+  ngOnChanges(changes: SimpleChanges) {
+    for (const propName in changes) {
+      const change = changes[propName];
+      const cur  = JSON.stringify(change.currentValue);
+      const prev = JSON.stringify(change.previousValue);
+      console.log(`%cOnChanges: ${propName}: currentValue = ${cur}, previousValue = ${prev}`, `color: ${this.color}`);
+    }
   }
 
   ngDoCheck() {

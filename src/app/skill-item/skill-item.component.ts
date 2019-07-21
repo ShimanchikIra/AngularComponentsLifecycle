@@ -18,11 +18,22 @@ import {
 })
 export class SkillItemComponent implements OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit,
   AfterViewChecked, OnDestroy {
-  @Input() userName: string;
+  // @Input() userName: string;
   @Input() skill: number;
   @Input() color: string;
   @Output() onChangedValue = new EventEmitter<number>();
   value: number;
+  _userName: string;
+
+  @Input()
+  set userName(name: string) {
+    if (name) {
+      this._userName = name;
+    } else {
+      this._userName = 'nobody';
+    }
+  }
+  get userName() { return this._userName; }
 
   constructor() {
     this.value = 0;
@@ -42,14 +53,12 @@ export class SkillItemComponent implements OnInit, OnChanges, DoCheck, AfterCont
     }
   }
   ngOnChanges(changes: SimpleChanges) {
-    // tslint:disable-next-line:forin
     for (const propName in changes) {
       const change = changes[propName];
       const cur  = JSON.stringify(change.currentValue);
       const prev = JSON.stringify(change.previousValue);
       console.log(`%cOnChanges: ${propName}: currentValue = ${cur}, previousValue = ${prev}`, `color: ${this.color}`);
     }
-    // console.log('%cOnChanges', `color: ${this.color}`);
   }
 
   ngDoCheck() {
