@@ -1,0 +1,4 @@
+<li class="skill-item" [ngStyle]="{'color': color}">{{userName}}'s Skill #{{skill}} value is {{value}}
+  <button class="skill-item__change-btn" [ngStyle]="{'background-color': color}" (click)="plus()">+</button>
+  <button class="skill-item__change-btn" [ngStyle]="{'background-color': color}" (click)="minus()">-</button>
+</li>
